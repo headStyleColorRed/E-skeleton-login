@@ -3,6 +3,9 @@
 
 E-skeleton-login is a docker project that will deploy in seconds a login/register system with Node.js and MongoDB so you can use it for your projects.
 
+In order to acces this login Api the endpoint should be:
+- http://login:8888
+
 You can search more of my E-skeletons docker projects and try to combine them in order to create a complete backend for your apps.
   - iOs_E-skeleton
   - Vue_E-skeleton

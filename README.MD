@@ -42,7 +42,7 @@ $ For    => const dbLink = "mongodb://localhost:27017/mongotest"
 ### Todos
 
  - Add testing
- - Json web token auth
+ - Add user data parser
 
 License
 ----

@@ -60,7 +60,7 @@ app.post("/register_user", async (req, res) => {
 	// Save user and answer request
 	await user.save()
 		.then(() => registerSucceded = true)
-		.catch((err) => console.log("error"))
+		.catch((err) => console.log("error " + err))
 
 	registerSucceded ? res.status(200).send("Register Succesfull") : res.status(401).send("Register Failed")
 
@@ -72,7 +72,10 @@ async function decriptUser(body) {
 	let promise = new Promise((resolve, reject) => {
 		User.findOne({ username: body.username })
 			.then(user => {
-				if (!user) { return }
+				if (!user) { 
+					resolve(false) 
+					return
+				}
 
 				bcrypt.compare(body.password, user.password, (err, isMatch) => {
 					if (err || !isMatch) { 

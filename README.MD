@@ -44,8 +44,7 @@ If you have Docker already installed in your pc, then proceed with this commands
 ```sh
 $ git clone https://github.com/headStyleColorRed/E-skeleton-login.git
 $ cd E-skeleton-login
-$ docker-compose build
-$ docker-compose up
+$ docker-compose up --build -d
 ```
 
 For personal environments you may want to change the 8th line in /server/app.js

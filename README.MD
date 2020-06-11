@@ -7,10 +7,26 @@ In order to acces this login Api the endpoint should be:
 - http://login:8888
 
 You can search more of my E-skeletons docker projects and try to combine them in order to create a complete backend for your apps.
-  - iOs_E-skeleton
-  - Vue_E-skeleton
-  - Api_E-skeleton
+  - E-skeleton-IOs
+  - E-skeleton-login
+  - E-skeleton-web
 
+### API use
+
+In order to log and register a user for example with axios, here you have the user model and the endpoints:
+
+```js
+let userData = {
+	username = "client's username",
+	password = "client's password",
+}
+
+$ axios.post("https://yourNetworkPath:8888/log_user", userData)
+	   .then((res) => console.log(res))
+
+$ axios.post("https://yourNetworkPath:8888/register_user", userData)
+	   .then((res) => console.log(res))
+```
 ### Tech
 
 E-skeleton-login uses a number of open source projects to work properly:
@@ -43,6 +59,9 @@ $ For    => const dbLink = "mongodb://localhost:27017/mongotest"
 
  - Add testing
  - Add user data parser
+ - Add Load Balancer
+ - Add Oaut 
+ - Add Recovery
 
 License
 ----

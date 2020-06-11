@@ -6,8 +6,8 @@ const bodyParser = require("body-parser")
 const Cors = require("cors")
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
-// const dbLink = "mongodb://mongo:27017/mongotest"
-const dbLink = "mongodb://localhost:27017/mongotest"
+const dbLink = "mongodb://mongo:27017/mongotest"
+// const dbLink = "mongodb://localhost:27017/mongotest"
 
 // Modules
 const User = require("./userModel.js")
@@ -31,11 +31,6 @@ mongoose.connect(dbLink, { useNewUrlParser: true }, (err) => {
 app.get("/", (req, res) => {
 	res.send("We are up and going!!")
 })
-
-app.get("/users", async (req, res) => {					//	 B O R R A R
-	const users = await User.find();					//	 B O R R A R
-	res.json(users);									//	 B O R R A R
-});
 
 app.post("/log_user", async (req, res) => {
 	let body = req.body
@@ -85,15 +80,3 @@ async function decriptUser(body) {
 	let result = await promise;
 	return (result)
 }
-
-
-// let promise = new Promise((resolve, reject) => {
-// 	User.findOne({ username: body.username })
-// 		.then(user => {
-// 			resolve(user)
-
-// 		})
-// 		.catch(() => { 
-// 			reject("User not found") 
-// 		})
-// });

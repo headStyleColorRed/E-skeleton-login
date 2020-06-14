@@ -16,15 +16,21 @@ You can search more of my E-skeletons docker projects and try to combine them in
 In order to log and register a user for example with axios, here you have the user model and the endpoints:
 
 ```js
-let userData = {
+let logUserData = {
 	username = "client's username",
 	password = "client's password",
 }
 
-$ axios.post("https://yourNetworkPath:8888/log_user", userData)
+let registerUserData = {
+	username = "client's username",
+	password = "client's password",
+	passwordConfirmation = "client's confirmation password"
+}
+
+$ axios.post("https://yourNetworkPath:8888/login/log_user", logUserData)
 	   .then((res) => console.log(res))
 
-$ axios.post("https://yourNetworkPath:8888/register_user", userData)
+$ axios.post("https://yourNetworkPath:8888/register/register_user", registerUserData)
 	   .then((res) => console.log(res))
 ```
 ### Tech
@@ -47,20 +53,21 @@ $ cd E-skeleton-login
 $ docker-compose up --build -d
 ```
 
-For personal environments you may want to change the 8th line in /server/app.js
+For personal environments you may want to run
 
-```sh
-$ Change => const dbLink = "mongodb://mongo:27017/mongotest"
-$ For    => const dbLink = "mongodb://localhost:27017/mongotest"
+```js
+$ npm run dev
+// Instead of :
+$ npm start
 ```
 
 ### Todos
 
  - Add testing
- - Add user data parser
  - Add Load Balancer
- - Add Oaut 
+ - Add Oauth
  - Add Recovery
+ - Add user profile (admin... client...)
 
 License
 ----

@@ -1,8 +1,8 @@
 {
   "name": "scripts",
   "version": "0.0.2",
-  "description": "",
-  "main": "index.js",
+  "description": "A dockerized user manager app",
+  "main": "server/app.js",
   "scripts": {
 	"start": "NODE_ENV=production node server/app.js",
 	"dev": "NODE_ENV=development nodemon server/app.js",

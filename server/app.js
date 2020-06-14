@@ -38,7 +38,7 @@ mongoose.connect(dbLink, { useNewUrlParser: true }, (err) => {
 // ++++++++++++++++ HTTP METHODS +++++++++++++++++++ //
 
 app.get("/", (req, res) => {
-	res.send("We are up and going!!")
+	res.send("E-Skeleton-login is ready to get some users! :D")
 })
 
 

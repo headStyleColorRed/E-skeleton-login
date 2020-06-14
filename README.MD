@@ -19,12 +19,12 @@ Down here you have example code for the events that this server provides:
 
 ```js
 function logUser() { 
-	let logUserData = {
+	let userData = {
 		username: "client's username",
-		password: "client's password",
+		password: "client's password"
 	}
 
-	$ axios.post("https://yourNetworkPath:8888/login/log_user", logUserData)
+	$ axios.post("https://yourNetworkPath:8888/login/log_user", userData)
 	   	   .then((res) => console.log(res))
 }
 ```
@@ -33,14 +33,14 @@ function logUser() {
 
 ```js
 function registerUser() {
-	let registerUserData = {
+	let userData = {
 		username: "client's username",
 		password: "client's password",
-		passwordConfirmation: "client's confirmation password"
-		group: "
+		passwordConfirmation: "client's confirmation password",
+		group: "admin" // defaults in "user"
 	}
 
-	axios.post("https://yourNetworkPath:8888/register/register_user", registerUserData)
+	axios.post("https://yourNetworkPath:8888/register/register_user", userData)
 	     .then((res) => console.log(res))
 }
 ```
@@ -48,13 +48,12 @@ function registerUser() {
 #### Logout
 ```js
 function logoutUser() {
-	let registerUserData = {
+	let userData = {
 		username: "client's username",
-		password :"client's password",
-		passwordConfirmation: "client's confirmation password"
+		password :"client's password"
 	}
 
-	$ axios.post("https://yourNetworkPath:8888/logout/logout_user", registerUserData)
+	$ axios.post("https://yourNetworkPath:8888/logout/logout_user", userData)
 		   .then((res) => console.log(res))
 }
 ```
@@ -64,13 +63,12 @@ function logoutUser() {
 ```js
 
 function checkUserStatus() {
-	let registerUserData = {
+	let userData = {
 		username: "client's username",
-		password :"client's password",
-		passwordConfirmation: "client's confirmation password"
+		password :"client's password"
 	}
 
-	$ axios.post("https://yourNetworkPath:8888/register/user_status", registerUserData)
+	$ axios.post("https://yourNetworkPath:8888/status/user_status", userData)
 		   .then((res) => console.log(res))
 }
 

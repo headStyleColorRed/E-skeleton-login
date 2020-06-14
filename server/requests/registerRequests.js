@@ -13,7 +13,7 @@ router.post("/register_user", async (req, res) => {
 
 	let validation = ValidationManager.validateRegisterData(body)
 	if (validation.isError) {
-		res.status(401).send(validation.errorMessage)
+		res.status(200).send(validation.errorMessage)
 		return
 	}
 
@@ -22,7 +22,7 @@ router.post("/register_user", async (req, res) => {
 	const user = new User({ username: body.username, password: hash });
 
 	// Save user and answer request
-	await user.save().catch((err) => res.status(401).send(err))
+	await user.save().catch((err) => res.status(200).send(err))
 
 	res.status(200).send("Register Succesfull")
 

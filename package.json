@@ -4,8 +4,8 @@
   "description": "A dockerized user manager app",
   "main": "server/app.js",
   "scripts": {
-	"start": "NODE_ENV=production node server/app.js",
-	"dev": "NODE_ENV=development nodemon server/app.js",
+    "start": "NODE_ENV=production node server/app.js",
+    "dev": "NODE_ENV=development nodemon server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.9.11",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0"
   }
 }

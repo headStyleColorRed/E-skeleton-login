@@ -13,14 +13,14 @@ router.post("/log_user", async (req, res) => {
 	// Verify request data
 	let validation = ValidationManager.validateLoginData(body)
 	if (validation.isError) {
-		res.status(401).send(validation.errorMessage)
+		res.status(200).send(validation.errorMessage)
 		return
 	}
 
 	// Decrypt and compare user
 	let loginResult = await decriptUser(body)
 	if (loginResult.isError) {
-		res.status(401).send(loginResult.errorMessage)
+		res.status(200).send(loginResult.errorMessage)
 		return
 	}
 	res.status(200).send("Login Succesfull")

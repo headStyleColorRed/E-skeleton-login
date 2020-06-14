@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use("/login", require("./requests/loginRequests"))
 app.use("/register", require("./requests/registerRequests"))
 app.use("/logout", require("./requests/logoutRequest"))
+app.use("/status", require("./requests/statusRequests"))
 
 // Open port
 app.listen(puerto, () => console.log("Listening port " + puerto))

@@ -13,26 +13,69 @@ You can search more of my E-skeletons docker projects and try to combine them in
 
 ### API use
 
-In order to log and register a user for example with axios, here you have the user model and the endpoints:
+Down here you have example code for the events that this server provides:
+
+#### Login
 
 ```js
-let logUserData = {
-	username = "client's username",
-	password = "client's password",
+function logUser() { 
+	let logUserData = {
+		username: "client's username",
+		password: "client's password",
+	}
+
+	$ axios.post("https://yourNetworkPath:8888/login/log_user", logUserData)
+	   	   .then((res) => console.log(res))
 }
-
-let registerUserData = {
-	username = "client's username",
-	password = "client's password",
-	passwordConfirmation = "client's confirmation password"
-}
-
-$ axios.post("https://yourNetworkPath:8888/login/log_user", logUserData)
-	   .then((res) => console.log(res))
-
-$ axios.post("https://yourNetworkPath:8888/register/register_user", registerUserData)
-	   .then((res) => console.log(res))
 ```
+
+#### Register
+
+```js
+function registerUser() {
+	let registerUserData = {
+		username: "client's username",
+		password: "client's password",
+		passwordConfirmation: "client's confirmation password"
+		group: "
+	}
+
+	axios.post("https://yourNetworkPath:8888/register/register_user", registerUserData)
+	     .then((res) => console.log(res))
+}
+```
+
+#### Logout
+```js
+function logoutUser() {
+	let registerUserData = {
+		username: "client's username",
+		password :"client's password",
+		passwordConfirmation: "client's confirmation password"
+	}
+
+	$ axios.post("https://yourNetworkPath:8888/logout/logout_user", registerUserData)
+		   .then((res) => console.log(res))
+}
+```
+
+#### User status
+
+```js
+
+function checkUserStatus() {
+	let registerUserData = {
+		username: "client's username",
+		password :"client's password",
+		passwordConfirmation: "client's confirmation password"
+	}
+
+	$ axios.post("https://yourNetworkPath:8888/register/user_status", registerUserData)
+		   .then((res) => console.log(res))
+}
+
+```
+
 ### Tech
 
 E-skeleton-login uses a number of open source projects to work properly:

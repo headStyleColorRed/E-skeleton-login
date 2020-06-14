@@ -19,28 +19,43 @@ router.post("/log_user", async (req, res) => {
 
 	// Decrypt and compare user
 	let loginResult = await decriptUser(body)
-
-	loginResult ? res.status(200).send("Login Succesfull") : res.status(401).send("Login Failed")
+	if (loginResult.isError) {
+		res.status(401).send(loginResult.errorMessage)
+		return
+	}
+	res.status(200).send("Login Succesfull")
 });
 
 
 async function decriptUser(body) {
+	let validationResult = {
+		isError: false,
+		errorMessage: new String()
+	}
 
 	let promise = new Promise((resolve, reject) => {
 		User.findOne({ username: body.username })
 			.then(user => {
 				if (!user) { 
-					resolve(false) 
+					validationResult.isError = true
+					validationResult.errorMessage = "User doesn't exist"
+					resolve(validationResult) 
 					return
 				}
 				bcrypt.compare(body.password, user.password, (err, isMatch) => {
 					if (err || !isMatch) { 
-						resolve (false)
+						validationResult.isError = true
+						validationResult.errorMessage = "Wrong Password"
+						resolve (validationResult)
 					 }
-					resolve(true)
+					resolve(validationResult)
 				})
 			})
-			.catch(err => reject(err))
+			.catch(err => {
+				validationResult.isError = true
+				validationResult.errorMessage = err
+				reject(validationResult)
+			})
 	})
 
 	let result = await promise;

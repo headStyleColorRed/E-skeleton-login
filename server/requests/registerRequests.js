@@ -22,11 +22,9 @@ router.post("/register_user", async (req, res) => {
 	const user = new User({ username: body.username, password: hash });
 
 	// Save user and answer request
-	await user.save()
-		.then(() => registerSucceded = true)
-		.catch((err) => console.log("error " + err))
+	await user.save().catch((err) => res.status(401).send(err))
 
-	registerSucceded ? res.status(200).send("Register Succesfull") : res.status(401).send("Register Failed")
+	res.status(200).send("Register Succesfull")
 
 });
 

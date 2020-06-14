@@ -54,7 +54,9 @@ function validateUsername(str) {
 	var error = "";
 	var illegalChars = /\W/; // allow letters, numbers, and underscores
 
-	if (str == "") {
+	if (!str)
+		error = "Username error: Username field missing"
+	else if (str == "") {
 		error = "Username error: Empty username";
 	} else if ((str.length < 5) || (str.length > 15)) {
 		error = "Username error: Username must have 5-15 characters";
@@ -67,6 +69,9 @@ function validateUsername(str) {
 }
 
 function validatePassword(str) {
+
+	if (!str)
+		return "Password error: Password field missing"
 
 	// Validate lowercased letters
 	var lowerCaseLetters = /[a-z]/g;

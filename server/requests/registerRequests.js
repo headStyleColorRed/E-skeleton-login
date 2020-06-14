@@ -9,7 +9,6 @@ const ValidationManager = require("../tools/validation.js")
 router.post("/register_user", async (req, res) => {
 	// Parse request Data
 	let body = req.body
-	let registerSucceded = false
 
 	let validation = ValidationManager.validateRegisterData(body)
 	if (validation.isError) {
@@ -19,7 +18,7 @@ router.post("/register_user", async (req, res) => {
 
 	// Encrypt and create user
 	const hash = await bcrypt.hash(body.password, 10);
-	const user = new User({ username: body.username, password: hash });
+	const user = new User({ username: body.username, password: hash, group: getGroup(body)});
 
 	// Save user and answer request
 	await user.save().catch((err) => res.status(200).send(err))
@@ -27,6 +26,15 @@ router.post("/register_user", async (req, res) => {
 	res.status(200).send("Register Succesfull")
 
 });
+
+
+function getGroup(body) {
+	if (body.group)
+		if (body.group !== "")
+			return body.group
+
+	return "user"
+}
 
 
 module.exports = router;

@@ -9,7 +9,16 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "can't be blank"]
-    }
+	},
+	group: {
+		type: String,
+		default: "user"
+	},
+	status: {
+		type: String,
+		default: "logged out" // vs "logged in"
+	}
+	
 });
 const User = mongoose.model("User", userSchema);
 

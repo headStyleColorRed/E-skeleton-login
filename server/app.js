@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Routes
 app.use("/login", require("./requests/loginRequests"))
 app.use("/register", require("./requests/registerRequests"))
+app.use("/logout", require("./requests/logoutRequest"))
 
 // Open port
 app.listen(puerto, () => console.log("Listening port " + puerto))
@@ -45,6 +46,11 @@ app.get("/", (req, res) => {
 app.get("/users", async (req, res) => {					//	 B O R R A R
 	const users = await User.find();					//	 B O R R A R
 	res.json(users);									//	 B O R R A R
+});
+
+app.get("/deleteUsers", async (req, res) => {			//	 B O R R A R
+	const users = await User.deleteMany();				//	 B O R R A R
+	res.json("Users deleted");							//	 B O R R A R
 });
 
 

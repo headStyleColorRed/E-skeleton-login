@@ -28,28 +28,43 @@ router.post("/log_user", async (req, res) => {
 
 
 async function decriptUser(body) {
+
+	const filter = { username: body.username };
+	const update = { status: "logged in" };
 	let validationResult = {
 		isError: false,
 		errorMessage: new String()
 	}
 
 	let promise = new Promise((resolve, reject) => {
-		User.findOne({ username: body.username })
+		User.findOneAndUpdate(filter, update)
 			.then(user => {
-				if (!user) { 
+
+				// Check if user field exists
+				if (!user) {
 					validationResult.isError = true
 					validationResult.errorMessage = "User doesn't exist"
-					resolve(validationResult) 
+					resolve(validationResult)
 					return
 				}
+
+				// Compare the crypted passwords
 				bcrypt.compare(body.password, user.password, (err, isMatch) => {
-					if (err || !isMatch) { 
+					if (err || !isMatch) {
 						validationResult.isError = true
 						validationResult.errorMessage = "Wrong Password"
-						resolve (validationResult)
-					 }
+						resolve(validationResult)
+					}
 					resolve(validationResult)
 				})
+
+				// Check if user is logged
+				if (user.status == "logged in") {
+					validationResult.isError = true
+					validationResult.errorMessage = "User is already logged"
+					resolve(validationResult)
+					return
+				}
 			})
 			.catch(err => {
 				validationResult.isError = true

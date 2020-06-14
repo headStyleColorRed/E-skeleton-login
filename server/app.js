@@ -9,13 +9,13 @@ const environment = process.env.NODE_ENV
 var dbLink = new String()
 
 // Modules
-const User = require("./userModel.js")
+const User = require("./mongoDB/userModel.js")
 
 // Set environment
-if (environment == "development")
-	dbLink = "mongodb://localhost:27017/mongotest"
-else 
+if (environment == "production")
 	dbLink = "mongodb://mongo:27017/mongotest"
+else 
+	dbLink = "mongodb://localhost:27017/mongotest"
 
 // Middlewares
 app.use(Cors());

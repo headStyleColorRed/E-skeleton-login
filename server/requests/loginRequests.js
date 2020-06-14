@@ -2,11 +2,20 @@ const express = require("express")
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
+// Modules
+const User = require("../mongoDB/userModel.js")
+const ValidationManager = require("../tools/validation.js")
 
-const User = require("../userModel.js")
 
 router.post("/log_user", async (req, res) => {
 	let body = req.body
+
+	// Verify request data
+	let validation = ValidationManager.validateLoginData(body)
+	if (validation.isError) {
+		res.status(401).send(validation.errorMessage)
+		return
+	}
 
 	// Decrypt and compare user
 	let loginResult = await decriptUser(body)

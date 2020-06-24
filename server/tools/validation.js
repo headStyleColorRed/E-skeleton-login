@@ -52,16 +52,18 @@ function validateRegisterData(userData) {
 // Validators
 function validateUsername(str) {
 	var error = "";
-	var illegalChars = /\W/; // allow letters, numbers, and underscores
-
+	
 	if (!str)
-		error = "Username error: Username field missing"
+		error = "Email error: Email field missing"
 	else if (str == "") {
-		error = "Username error: Empty username";
-	} else if ((str.length < 5) || (str.length > 15)) {
-		error = "Username error: Username must have 5-15 characters";
-	} else if (illegalChars.test(str)) {
-		error = "Username error: Username is not valid, ilegal characters used.";
+		error = "Email error: Empty username";
+	} else if ((str.length < 5) || (str.length > 40)) {
+		console.log(str.length);
+		error = "Email error: Email must have 5-40 characters";
+	} else if (!str.includes("@")) {
+		error = "Email error: Email is not valid, missing @";
+	} else if (!str.includes(".com")) {
+		error = "Email error: Email is not valid, missing .com";
 	} else {
 		error = "";
 	}

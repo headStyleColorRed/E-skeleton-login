@@ -23,7 +23,7 @@ router.post("/log_user", async (req, res) => {
 		res.status(200).send(loginResult.errorMessage)
 		return
 	}
-	res.status(200).send("Login Succesfull")
+	res.status(200).send({ code: "200", status:"Login Succesfull"})
 });
 
 

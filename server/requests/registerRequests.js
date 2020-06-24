@@ -23,7 +23,7 @@ router.post("/register_user", async (req, res) => {
 	// Save user and answer request
 	await user.save().catch((err) => res.status(200).send(err))
 
-	res.status(200).send("Register Succesfull")
+	res.status(200).send({ code: "200", status: "Register Succesfull"})
 
 });
 

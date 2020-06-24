@@ -20,7 +20,7 @@ router.post("/user_status", async (req, res) => {
 
 	// Decrypt and search user
 	let loginResult = await checkUserStatus(body)
-	.then((result) => { res.status(200).send(result.errorMessage)})
+	.then((result) => { res.status(200).send({code: "200", status: result.errorMessage})})
 	.catch((err) => { console.log(err); res.status(200).send(err.errorMessage)})
 });
 

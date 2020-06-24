@@ -21,7 +21,7 @@ router.post("/logout_user", async (req, res) => {
 	// Decrypt and compare user
 	let logoutResult = await User.findOneAndUpdate(filter, update).catch((err) => res.status(200).send(err))
 	
-	res.status(200).send("Logout Succesfull")
+	res.status(200).send({code: "200", status:"Logout Succesfull"})
 });
 
 

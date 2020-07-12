@@ -108,7 +108,6 @@ $ npm start
  - Add Load Balancer
  - Add Oauth
  - Add Recovery
- - Add user profile (admin... client...)
 
 License
 ----

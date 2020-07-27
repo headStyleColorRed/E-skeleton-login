@@ -8,8 +8,10 @@ const mongoose = require("mongoose")
 const environment = process.env.NODE_ENV
 var dbLink = new String()
 
+
 // Modules
 const User = require("./mongoDB/userModel.js")
+
 
 // Set environment
 if (environment == "production")
@@ -17,10 +19,12 @@ if (environment == "production")
 else 
 	dbLink = "mongodb://localhost:27017/mongologin"
 
+
 // Middlewares
 app.use(Cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
+
 
 // Routes
 app.use("/login", require("./requests/loginRequests"))
@@ -28,13 +32,22 @@ app.use("/register", require("./requests/registerRequests"))
 app.use("/logout", require("./requests/logoutRequest"))
 app.use("/status", require("./requests/statusRequests"))
 
+
 // Open port
 app.listen(puerto, () => console.log("Listening port " + puerto))
 
+
 // DataBase connection
-mongoose.connect(dbLink, { useNewUrlParser: true }, (err) => {
-	err ? console.log("Encountered an error in Db Connection") : console.log("Succesfully connected with DB");
-})
+let timeOut = setInterval(() => {
+	mongoose.connect(dbLink, { useNewUrlParser: true }, (err) => {
+		if (err) {
+			console.log("Encountered an error in Db Connection")
+		} else {
+			console.log("Succesfully connected with DB");
+			clearInterval(timeOut)
+		}
+	})
+}, 5000);
 
 
 // ++++++++++++++++ HTTP METHODS +++++++++++++++++++ //
@@ -42,7 +55,6 @@ mongoose.connect(dbLink, { useNewUrlParser: true }, (err) => {
 app.get("/", (req, res) => {
 	res.send("E-skeleton-login is up and running! :D")
 })
-
 
 app.get("/users", async (req, res) => {					//	 B O R R A R
 	const users = await User.find();					//	 B O R R A R

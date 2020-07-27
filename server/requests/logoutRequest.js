@@ -9,9 +9,10 @@ const ValidationManager = require("../tools/validation.js")
 
 router.post("/logout_user", async (req, res) => {
 	let body = req.body
+	let isError = false
 
 	// Verify request data
-	let validation = ValidationManager.validateLoginData(body)
+	let validation = ValidationManager.validateEmailData(body)
 	if (validation.isError) {
 		res.status(200).send(validation.errorMessage)
 		return
@@ -20,9 +21,11 @@ router.post("/logout_user", async (req, res) => {
 	// Decrypt and compare user
 	let loginResult = await decriptUser(body)
 	if (loginResult.isError) {
-		res.status(200).send(loginResult.errorMessage)
-		return
+		res.status(200).send({ code: "400", status:"Logout Error", err: loginResult.errorMessage })
+		isError = true
 	}
+	if (isError) return;
+
 	res.status(200).send({ code: "200", status:"Logout Succesfull"})
 });
 
@@ -57,14 +60,6 @@ async function decriptUser(body) {
 					}
 					resolve(validationResult)
 				})
-
-				// Check if user is logged
-				if (user.status == "logged out") {
-					validationResult.isError = true
-					validationResult.errorMessage = "User is already logged out"
-					resolve(validationResult)
-					return
-				}
 			})
 			.catch(err => {
 				validationResult.isError = true

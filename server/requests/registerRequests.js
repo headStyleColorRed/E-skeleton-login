@@ -2,26 +2,34 @@ const express = require("express")
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
-
 const User = require("../mongoDB/userModel.js")
 const ValidationManager = require("../tools/validation.js")
 
 router.post("/register_user", async (req, res) => {
 	// Parse request Data
 	let body = req.body
+	let isError = false
 
 	let validation = ValidationManager.validateRegisterData(body)
 	if (validation.isError) {
-		res.status(200).send(validation.errorMessage)
-		return
+		res.status(200).send({ code: "200", status: validation.errorMessage })
+		isError = true
 	}
+	if (isError) return;
 
 	// Encrypt and create user
 	const hash = await bcrypt.hash(body.password, 10);
 	const user = new User({email: body.email, username: body.username, password: hash, group: getGroup(body)});
 
-	// Save user and answer request
-	await user.save().catch((err) => res.status(200).send(err))
+	// Save user 
+	await user.save().catch((err) => {
+		if (err.code == 11000)
+			res.status(200).send({ code: "400", status: "User already exists" })
+		else 
+			res.status(200).send({ code: "400", status: err })
+		isError = true
+	})
+	if (isError) { return }
 
 	res.status(200).send({ code: "200", status: "Register Succesfull"})
 

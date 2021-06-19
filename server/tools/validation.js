@@ -47,12 +47,6 @@ function validateRegisterData(userData) {
 		return validationResult
 	}
 
-	if (validateUsername(userData.username).length > 1) {
-		validationResult.isError = true
-		validationResult.errorMessage = validateUsername(userData.username)
-		return validationResult
-	}
-
 	if (validatePassword(userData.password).length > 1) {
 		validationResult.isError = true
 		validationResult.errorMessage = validatePassword(userData.password)
@@ -88,21 +82,6 @@ function validateEmail(str) {
 		error = "Email error: Email is not valid, missing @";
 	} else if (!str.includes(".com")) {
 		error = "Email error: Email is not valid, missing .com";
-	} else {
-		error = "";
-	}
-	return error;
-}
-
-function validateUsername(str) {
-	var error = "";
-	
-	if (!str)
-		error = "Username error: Username field missing"
-	else if (str == "") {
-		error = "Username error: Empty Username";
-	} else if ((str.length < 5) || (str.length > 40)) {
-		error = "Username error: Username must have 5-40 characters";
 	} else {
 		error = "";
 	}

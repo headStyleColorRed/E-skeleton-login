@@ -21,15 +21,6 @@ describe("Register Tests", () => {
     	expect(res.body.status).to.equal("Email error: email field missing")
 	})
 
-    it("Register without sending username", async () => {
-    	let res = await chai.request(app).post('/register/register_user').send({
-            email: "michaelscott@dundermifflin.com"
-        })
-    	expect(res.status).to.equal(200)
-    	expect(res.body.code).to.equal("400")
-    	expect(res.body.status).to.equal("Username error: Username field missing")
-	})
-
     it("Register without sending password", async () => {
     	let res = await chai.request(app).post('/register/register_user').send({
             email: "michaelscott@dundermifflin.com",

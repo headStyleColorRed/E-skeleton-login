@@ -16,15 +16,15 @@ router.post("/register_user", async (req, res) => {
 
 	// Encrypt and create user
 	const hash = await bcrypt.hash(body.password, 10);
-	const user = new User({email: body.email, username: body.username, password: hash, group: getGroup(body)});
+	const user = new User({email: body.email, password: hash, group: getGroup(body)});
 
-	// Save user 
-	await user.save().catch((err) => {
+	try {
+		await user.save().catch((err) => { throw err })
+	} catch (err) {
 		return res.status(200).send({ code: "400", status: err.code == 11000 ? "User already exists" : err}) 
-	})
+	}
 
 	res.status(200).send({ code: "200", status: "Register Succesfull"})
-
 });
 
 

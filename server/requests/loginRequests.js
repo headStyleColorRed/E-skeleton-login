@@ -10,7 +10,6 @@ const ValidationManager = require("../tools/validation.js")
 
 router.post("/log_user", async (req, res) => {
 	let body = req.body
-	let isError = false
 
 	// Verify request data
 	let validation = ValidationManager.validateLoginData(body)
@@ -21,10 +20,8 @@ router.post("/log_user", async (req, res) => {
 	// Decrypt and compare user
 	let loginResult = await decriptUser(body)
 	if (loginResult.isError) {
-		res.status(200).send({ code: "400", status: loginResult.errorMessage })
-		isError = true
+		return res.status(200).send({ code: "400", status: loginResult.errorMessage })
 	}
-	if (isError) return; 
 
 	res.status(200).send({ code: "200", status: "Login Succesfull" })
 });

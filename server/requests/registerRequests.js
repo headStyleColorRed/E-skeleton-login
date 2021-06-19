@@ -8,14 +8,11 @@ const ValidationManager = require("../tools/validation.js")
 router.post("/register_user", async (req, res) => {
 	// Parse request Data
 	let body = req.body
-	let isError = false
 
 	let validation = ValidationManager.validateRegisterData(body)
 	if (validation.isError) {
-		res.status(200).send({ code: "400", status: validation.errorMessage })
-		isError = true
+		return res.status(200).send({ code: "400", status: validation.errorMessage })
 	}
-	if (isError) return;
 
 	// Encrypt and create user
 	const hash = await bcrypt.hash(body.password, 10);
@@ -23,13 +20,8 @@ router.post("/register_user", async (req, res) => {
 
 	// Save user 
 	await user.save().catch((err) => {
-		if (err.code == 11000)
-			res.status(200).send({ code: "400", status: "User already exists" })
-		else 
-			res.status(200).send({ code: "400", status: err })
-		isError = true
+		return res.status(200).send({ code: "400", status: err.code == 11000 ? "User already exists" : err}) 
 	})
-	if (isError) { return }
 
 	res.status(200).send({ code: "200", status: "Register Succesfull"})
 

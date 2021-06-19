@@ -12,8 +12,7 @@ router.post("/user_status", async (req, res) => {
 	// Verify request data
 	let validation = ValidationManager.validateEmailData(body)
 	if (validation.isError) {
-		res.status(200).send(validation.errorMessage)
-		return
+		return res.status(200).send(validation.errorMessage)
 	}
 
 	// Decrypt and search user

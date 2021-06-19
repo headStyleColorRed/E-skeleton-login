@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 
 // Modules
 const User = require("../mongoDB/userModel.js")
@@ -14,10 +15,8 @@ router.post("/log_user", async (req, res) => {
 	// Verify request data
 	let validation = ValidationManager.validateLoginData(body)
 	if (validation.isError) {
-		res.status(200).send({ code: "400", status: validation.errorMessage })
-		isError = true
+		return res.status(200).send({ code: "400", status: validation.errorMessage })
 	}
-	if (isError) return; 
 
 	// Decrypt and compare user
 	let loginResult = await decriptUser(body)

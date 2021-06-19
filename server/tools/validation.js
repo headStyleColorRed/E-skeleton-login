@@ -73,7 +73,7 @@ function validateEmail(str) {
 	var error = "";
 	
 	if (!str)
-		error = "Email error: Email field missing"
+		error = "Email error: email field missing"
 	else if (str == "") {
 		error = "Email error: Empty Email";
 	} else if ((str.length < 5) || (str.length > 40)) {
@@ -106,7 +106,7 @@ function validateUsername(str) {
 function validatePassword(str) {
 
 	if (!str)
-		return "Password error: Password field missing"
+		return "Password error: password field missing"
 
 	// Validate lowercased letters
 	var lowerCaseLetters = /[a-z]/g;

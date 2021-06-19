@@ -1,12 +1,12 @@
-
 const express = require("express")
 const app = express();
+const bodyParser = require('body-parser');
 const puerto = parseInt(process.env.PORT, 10) || 8888;
-const bodyParser = require("body-parser")
 const Cors = require("cors")
 const mongoose = require("mongoose")
 const environment = process.env.NODE_ENV
 var dbLink = new String()
+require('dotenv').config()
 
 
 // Modules

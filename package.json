@@ -6,6 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production node server/app.js",
     "dev": "NODE_ENV=development nodemon server/app.js",
+		"docker": "docker container run -d --rm -p 27017:27017 mongo && NODE_ENV=development nodemon server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,7 +16,9 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.11"
   }
 }

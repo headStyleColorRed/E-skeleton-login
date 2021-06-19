@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Routes
 app.use("/login", require("./requests/loginRequests"))
 app.use("/register", require("./requests/registerRequests"))
-app.use("/logout", require("./requests/logoutRequest"))
+app.use("/logout", validateToken, require("./requests/logoutRequest"))
 app.use("/status", validateToken, require("./requests/statusRequests"))
 
 

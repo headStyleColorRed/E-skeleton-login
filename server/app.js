@@ -5,6 +5,7 @@ const puerto = parseInt(process.env.PORT, 10) || 8888;
 const Cors = require("cors")
 const mongoose = require("mongoose")
 const environment = process.env.NODE_ENV
+const jwt = require('jsonwebtoken');
 var dbLink = new String()
 require('dotenv').config()
 
@@ -29,13 +30,26 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Routes
 app.use("/login", require("./requests/loginRequests"))
 app.use("/register", require("./requests/registerRequests"))
-app.use("/logout", require("./requests/logoutRequest"))
-app.use("/status", require("./requests/statusRequests"))
+app.use("/logout", validateToken, require("./requests/logoutRequest"))
+app.use("/status", validateToken, require("./requests/statusRequests"))
 
 
 // Open port
 app.listen(puerto, () => console.log("Listening port " + puerto))
 
+
+// JWT Authenticate
+function validateToken(req, res, next) {
+	const token = req.headers["authorization"]
+	if (!token)
+		return res.status(200).send({ code: "400", status: "Access denied, no authorization token received" });
+
+	 jwt.verify(token, process.env.SECRET, (err, user) => {
+		 if (err)
+			return res.status(200).send({ code: "400", status: "Access denied, token expired or incorrect" });
+		 next()
+	 })
+}
 
 // DataBase connection
 if (environment != "testing") {

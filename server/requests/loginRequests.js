@@ -23,9 +23,10 @@ router.post("/log_user", async (req, res) => {
 		return res.status(200).send({ code: "400", status: loginResult.errorMessage })
 	}
 
-	res.status(200).send({ code: "200", status: "Login Succesfull" })
-});
+	const token = jwt.sign({email: body.email}, process.env.SECRET, {expiresIn: "1d"})
 
+	res.status(200).send({ code: "200", status: "Login Succesfull", token: token })
+});
 
 async function decriptUser(body) {
 

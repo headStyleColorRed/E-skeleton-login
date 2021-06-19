@@ -12,7 +12,7 @@ router.post("/register_user", async (req, res) => {
 
 	let validation = ValidationManager.validateRegisterData(body)
 	if (validation.isError) {
-		res.status(200).send({ code: "200", status: validation.errorMessage })
+		res.status(200).send({ code: "400", status: validation.errorMessage })
 		isError = true
 	}
 	if (isError) return;

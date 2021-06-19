@@ -59,6 +59,12 @@ function validateRegisterData(userData) {
 		return validationResult
 	}
 
+	if (validatePassword(userData.passwordConfirmation).length > 1) {
+		validationResult.isError = true
+		validationResult.errorMessage = validatePasswordConfirmation(userData.passwordConfirmation)
+		return validationResult
+	}
+
 	if (userData.password !== userData.passwordConfirmation) {
 		validationResult.isError = true
 		validationResult.errorMessage = "Passwords do not match"
@@ -129,6 +135,37 @@ function validatePassword(str) {
 	// Validate length
 	if (!str.length >= 8) {
 		return "Password error: Password is not long enough"
+	}
+
+	return ""
+}
+
+function validatePasswordConfirmation(str) {
+
+	if (!str)
+		return "Password confirmation error: passwordConfirmation field missing"
+
+	// Validate lowercased letters
+	var lowerCaseLetters = /[a-z]/g;
+	if (!str.match(lowerCaseLetters)) {
+		return "Password confirmation error: There are no lowercase letter"
+	}
+
+	// Validate capital letters
+	var upperCaseLetters = /[A-Z]/g;
+	if (!str.match(upperCaseLetters)) {
+		return "Password confirmation error: There are no upercase letter"
+	}
+
+	// Validate numbers
+	var numbers = /[0-9]/g;
+	if (!str.match(numbers)) {
+		return "Password confirmation error: There are no numbers"
+	}
+
+	// Validate length
+	if (!str.length >= 8) {
+		return "Password confirmation error: Password is not long enough"
 	}
 
 	return ""

@@ -12,8 +12,8 @@ require('dotenv').config()
 // Modules
 const User = require("./mongoDB/userModel.js")
 
-
 // Set environment
+console.log(`Current environment -> ${environment}`);
 if (environment == "production")
 	dbLink = "mongodb://login_DB:27017/mongologin"
 else 
@@ -38,17 +38,18 @@ app.listen(puerto, () => console.log("Listening port " + puerto))
 
 
 // DataBase connection
-let timeOut = setInterval(() => {
-	mongoose.connect(dbLink, { useNewUrlParser: true }, (err) => {
-		if (err) {
-			console.log("Encountered an error in Db Connection")
-		} else {
-			console.log("Succesfully connected with DB");
-			clearInterval(timeOut)
-		}
-	})
-}, 5000);
-
+if (environment != "testing") {
+	let timeOut = setInterval(() => {
+		mongoose.connect(dbLink, { useNewUrlParser: true, useFindAndModify: false }, (err) => {
+			if (err) {
+				console.log("Encountered an error in Db Connection")
+			} else {
+				console.log("Succesfully connected with DB");
+				clearInterval(timeOut)
+			}
+		})
+	}, 5000);
+}
 
 // ++++++++++++++++ HTTP METHODS +++++++++++++++++++ //
 
@@ -68,3 +69,4 @@ app.get("/deleteUsers", async (req, res) => {			//	 B O R R A R
 
 
 
+module.exports = app

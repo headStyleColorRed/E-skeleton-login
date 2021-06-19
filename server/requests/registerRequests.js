@@ -13,10 +13,10 @@ router.post("/register_user", async (req, res) => {
 	if (validation.isError) {
 		return res.status(200).send({ code: "400", status: validation.errorMessage })
 	}
-
+console.log(body.email);
 	// Encrypt and create user
 	const hash = await bcrypt.hash(body.password, 10);
-	const user = new User({email: body.email, password: hash, group: getGroup(body)});
+	const user = new User({email: body.email, password: hash});
 
 	try {
 		await user.save().catch((err) => { throw err })
@@ -26,15 +26,6 @@ router.post("/register_user", async (req, res) => {
 
 	res.status(200).send({ code: "200", status: "Register Succesfull"})
 });
-
-
-function getGroup(body) {
-	if (body.group)
-		if (body.group !== "")
-			return body.group
-
-	return "user"
-}
 
 
 module.exports = router;

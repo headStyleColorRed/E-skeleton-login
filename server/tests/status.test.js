@@ -6,6 +6,7 @@ chai.use(chaiHttp)
 const app = require("../app.js")
 const loginRequest = require("../requests/loginRequests")
 const mongoose = require("mongoose")
+let token = new String()
 
 
 describe("Status Tests", () => {
@@ -24,8 +25,32 @@ describe("Status Tests", () => {
         })
       });
 
+      it("Logged in Status", async () => {
+        // Login user
+        let loginRequest = await chai.request(app).post("/login/log_user").send({
+          email: "michaelscott@dundermifflin.com",
+          password: "IHateTobyFlenderson4ever",
+        });
+        token = loginRequest.body.token
+
+        let res = await await chai.request(app).post("/status/user_status").set({"authorization": token }).send({
+          email: "michaelscott@dundermifflin.com",
+          password: "IHateTobyFlenderson4ever",
+        });
+        console.log(res.body);
+        expect(res.status).to.equal(200);
+        expect(res.body.code).to.equal("200");
+        expect(res.body.status).to.equal("logged in");
+      });
+
       it("Logged out Status", async () => {
-        let res = await chai.request(app).post("/status/user_status").send({
+        // Log out
+        await chai.request(app).post('/logout/logout_user').send({
+          email: "michaelscott@dundermifflin.com",
+          password: "IHateTobyFlenderson4ever"
+      })
+
+        let res = await chai.request(app).post("/status/user_status").set({ "authorization": token }).send({
           email: "michaelscott@dundermifflin.com",
           password: "IHateTobyFlenderson4ever",
         });
@@ -33,23 +58,6 @@ describe("Status Tests", () => {
         expect(res.status).to.equal(200);
         expect(res.body.code).to.equal("200");
         expect(res.body.status).to.equal("logged out");
-      });
-
-      it("Logged in Status", async () => {
-        // Login user
-        await chai.request(app).post("/login/log_user").send({
-          email: "michaelscott@dundermifflin.com",
-          password: "IHateTobyFlenderson4ever",
-        });
-
-        let res = await chai.request(app).post("/status/user_status").send({
-          email: "michaelscott@dundermifflin.com",
-          password: "IHateTobyFlenderson4ever",
-        });
-
-        expect(res.status).to.equal(200);
-        expect(res.body.code).to.equal("200");
-        expect(res.body.status).to.equal("logged in");
       });
 
 

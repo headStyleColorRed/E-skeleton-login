@@ -13,7 +13,7 @@ router.post("/register_user", async (req, res) => {
 	if (validation.isError) {
 		return res.status(200).send({ code: "400", status: validation.errorMessage })
 	}
-console.log(body.email);
+
 	// Encrypt and create user
 	const hash = await bcrypt.hash(body.password, 10);
 	const user = new User({email: body.email, password: hash});

@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                sh Jenkins/jenkinBuild.sh 
+                sh 'npm install'
             }
         }
     }

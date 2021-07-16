@@ -1,1 +1,1 @@
-npm -v
+sudo apt-get update

@@ -18,7 +18,7 @@ pipeline {
         }
         stage("Testing server") {
             steps {
-                echo "npm run test"
+                sh "npm run test"
             }
         }
         stage("Cleaning data") {

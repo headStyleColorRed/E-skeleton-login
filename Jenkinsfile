@@ -1,16 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'mongo:latest'
+            args '-p 3000:3000'
+        }
+    }
+    environment {
+        CI = 'true'
+    }
     
     stages {
-        stage("Dockerizing") {
-            steps {
-                echo "Building server..."
-                script {
-                    sh "curl -fsSL https://get.docker.com -o get-docker.sh"
-                    sh "sh get-docker.sh"
-                }
-            }
-        }
         stage("Setting server") {
             steps {
                 echo "Building server..."

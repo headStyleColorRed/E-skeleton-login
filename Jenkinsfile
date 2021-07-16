@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo "Building server..."
                 script {
-                    sh "curl https://stackoverflow.com/questions/51492967/how-catch-curl-response-into-variable-in-jenkinsfile"
+                    sh "apt-get update"
                 }
             }
         }

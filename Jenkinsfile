@@ -5,7 +5,7 @@ pipeline {
         stage("Setting Database") {
             steps {
                 echo "Building database..."
-                sh "docker container run -d --rm -p 27017:27017 -name jenkinsMongo mongo"
+                sh "docker container run -d --rm -p 27017:27017 --name jenkinsMongo mongo"
             }
         }
         stage("Setting server") {

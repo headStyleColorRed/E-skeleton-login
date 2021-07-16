@@ -1,10 +1,18 @@
 pipeline {
     agent any
+    
     stages {
         stage("build") {
             steps {
-                sh "chmod +x -R Jenkins/jenkinBuild.sh"
-                sh 'Jenkins/jenkinBuild.sh'
+                echo "Building server..."
+                nodejs('Node') {
+                    sh 'npm install'
+                }
+            }
+        }
+        stage("test") {
+            steps {
+                echo "Runing tests..."
             }
         }
     }

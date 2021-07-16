@@ -23,7 +23,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'node --version'
+                sudo apt-get update
             }
         }
     }

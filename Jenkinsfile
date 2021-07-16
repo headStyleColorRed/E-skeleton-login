@@ -6,7 +6,8 @@ pipeline {
             steps {
                 echo "Building server..."
                 script {
-                    sh "apt-get update"
+                    sh "curl -fsSL https://get.docker.com -o get-docker.sh"
+                    sh "sh get-docker.sh"
                 }
             }
         }

@@ -2,17 +2,11 @@ pipeline {
     agent any
     
     stages {
-        stage("Setting Database") {
-            steps {
-                echo "Building database..."
-                sh "docker ps"
-            }
-        }
         stage("Setting server") {
             steps {
                 echo "Building server..."
                 nodejs('Node latest') {
-                    sh 'npm install'
+                    sh 'npm install && npm run docker'
                 }
             }
         }

@@ -5,7 +5,9 @@ pipeline {
         stage("Dockerizing") {
             steps {
                 echo "Building server..."
-                curl -fsSL "https://get.docker.com -o get-docker.sh"
+                script {
+                    sh "curl https://stackoverflow.com/questions/51492967/how-catch-curl-response-into-variable-in-jenkinsfile"
+                }
             }
         }
         stage("Setting server") {

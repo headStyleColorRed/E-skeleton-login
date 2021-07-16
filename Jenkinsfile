@@ -2,7 +2,13 @@ pipeline {
     agent any
     
     stages {
-        stage("build") {
+        stage("Dockerizing") {
+            steps {
+                echo "Building server..."
+                curl -fsSL "https://get.docker.com -o get-docker.sh"
+            }
+        }
+        stage("Setting server") {
             steps {
                 echo "Building server..."
                 nodejs('Node') {
@@ -10,7 +16,7 @@ pipeline {
                 }
             }
         }
-        stage("test") {
+        stage("Testing server") {
             steps {
                 echo "Runing tests..."
             }

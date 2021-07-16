@@ -6,12 +6,12 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                npm install
+                npm -v
             }
         }
         stage("test") {
             steps {
-                npm test
+                echo "Testing"
             }
         }
     }

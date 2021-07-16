@@ -1,15 +1,13 @@
 pipeline {
-    agent {
-        docker {
-            image 'mongo:latest'
-            args '-p 3000:3000'
-        }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent any
     
     stages {
+        stage("Setting Database") {
+            steps {
+                echo "Building database..."
+                sh "docker ps"
+            }
+        }
         stage("Setting server") {
             steps {
                 echo "Building server..."

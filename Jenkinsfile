@@ -1,17 +1,14 @@
 pipeline {
-    agent any
-    tools {
-        nodejs "node"
+    agent {
+        docker {
+            image 'node:lts-buster-slim' 
+            args '-p 3000:3000' 
+        }
     }
     stages {
-        stage("build") {
+        stage('Build') { 
             steps {
-                npm -v
-            }
-        }
-        stage("test") {
-            steps {
-                echo "Testing"
+                sh 'npm install' 
             }
         }
     }

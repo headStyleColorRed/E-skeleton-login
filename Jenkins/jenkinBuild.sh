@@ -1,1 +1,1 @@
-echo "Hola rodrigo"
+npm -v

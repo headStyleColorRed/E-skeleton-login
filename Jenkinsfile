@@ -18,12 +18,15 @@ pipeline {
         }
         stage("Testing server") {
             steps {
-                sh "npm run test"
+                nodejs('Node latest') {
+                    sh "npm run test"
+                }
             }
         }
         stage("Cleaning data") {
             steps {
-                echo "docker container stop jenkinsMongo "
+                echo "Destroying database..."
+                sh "docker container stop jenkinsMongo"
             }
         }
     }

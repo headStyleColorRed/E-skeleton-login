@@ -11,7 +11,7 @@ pipeline {
         stage("Setting server") {
             steps {
                 echo "Building server..."
-                nodejs('Node') {
+                nodejs('Node latest') {
                     sh 'npm install'
                 }
             }

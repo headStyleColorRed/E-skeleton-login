@@ -61,20 +61,27 @@ describe("Login Tests", () => {
 	})
 
 	it("Login request", async () => {
-        await chai.request(app).post('/register/register_user').send({
+		console.log("enter1")
+        chai.request(app).post('/register/register_user').send({
             email: "michaelscott@dundermifflin.com",
             username: "Michael Scott",
             password: "IHateTobyFlenderson4ever",
             passwordConfirmation: "IHateTobyFlenderson4ever"
-        })
+        }).end(async (err, res1) => {
+			console.log("out1")
 
-    	let res = await chai.request(app).post('/login/log_user').send({
-            email: "michaelscott@dundermifflin.com",
-            password: "IHateTobyFlenderson4ever"
-        })
-    	expect(res.status).to.equal(200)
-    	expect(res.body.code).to.equal("200")
-    	expect(res.body.status).to.equal("Login Succesfull")
+
+			console.log("enter2")
+			let res = await chai.request(app).post('/login/log_user').send({
+				email: "michaelscott@dundermifflin.com",
+				password: "IHateTobyFlenderson4ever"
+			})
+			console.log("out2")
+			expect(res.status).to.equal(200)
+			expect(res.body.code).to.equal("200")
+			expect(res.body.status).to.equal("Login Succesfull")
+		})
+
 	})
 
     it("Login with wrong password", async () => {

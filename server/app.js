@@ -1,6 +1,5 @@
 const express = require("express")
 const app = express();
-const bodyParser = require('body-parser');
 const puerto = parseInt(process.env.PORT, 10) || 8888;
 const Cors = require("cors")
 const mongoose = require("mongoose")
@@ -23,9 +22,8 @@ else
 
 // Middlewares
 app.use(Cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 
 // Routes
 app.use("/login", require("./requests/loginRequests"))
